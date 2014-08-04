@@ -25,6 +25,6 @@
   ],
   "dependencies": {
     "aseed": "adrenalin/aseed",
-    "jquery": "jquery"
+    "jquery": "~1.11"
   }
 }
