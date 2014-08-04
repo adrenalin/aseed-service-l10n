@@ -1,4 +1,4 @@
-define ['text!../locales.xml', 'jquery'], (locales, $) ->
+define ['jquery'], ($) ->
   class L10n
     locales: {}
     fallback: 'en'
@@ -86,7 +86,3 @@ define ['text!../locales.xml', 'jquery'], (locales, $) ->
       for alias, key of aliases
         if typeof @locales[key] isnt 'undefined'
           @locales[alias] = @locales[key]
-  
-  l10n = new L10n
-  l10n.addLocalesXML(locales)
-  return l10n
