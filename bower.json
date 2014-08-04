@@ -1,0 +1,29 @@
+{
+  "name": "aseed-service-l10n",
+  "version": "0.0.1",
+  "homepage": "https://github.com/adrenalin/aseed-service-l10n",
+  "authors": [
+    "Arttu Manninen <arttu@kaktus.cc>"
+  ],
+  "description": "Localization library",
+  "main": "queryparams.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "angularjs",
+    "aseed",
+    "query parameters"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "aseed": "adrenalin/aseed"
+  }
+}
