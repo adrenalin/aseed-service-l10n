@@ -24,6 +24,7 @@
     "tests"
   ],
   "dependencies": {
-    "aseed": "adrenalin/aseed"
+    "aseed": "adrenalin/aseed",
+    "jquery": "jquery"
   }
 }
