@@ -21,10 +21,7 @@ define [], () ->
         # Place the operations in a method, since sometimes the watcher cycle and directive
         # aren't synchronized. This requires a custom watch event for this scope.
         doMagick = (str) ->
-          console.log 'str', str
-          
           if typeof $scope.asDate isnt 'undefined'
-            console.log 'formatDate', str, $scope.asDate
             translated = l10n.formatDate str, $scope.asDate
           else if typeof l10n is 'undefined' or typeof l10n is 'null'
             translated = str
