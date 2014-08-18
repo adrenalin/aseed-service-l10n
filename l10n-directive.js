@@ -19,28 +19,39 @@
           asDate: '@'
         },
         link: function($scope, el, attrs) {
-          var str, translated;
+          var doMagick, str;
+          doMagick = function(str) {
+            var translated;
+            console.log('str', str);
+            if (typeof $scope.asDate !== 'undefined') {
+              console.log('formatDate', str, $scope.asDate);
+              translated = l10n.formatDate(str, $scope.asDate);
+            } else if (typeof l10n === 'undefined' || typeof l10n === 'null') {
+              translated = str;
+            } else {
+              translated = l10n.get(str);
+            }
+            switch (el[0].tagName.toLowerCase()) {
+              case 'input':
+                return el[0].value = translated;
+              case 'img':
+                el[0].alt = translated;
+                return el[0].title = translated;
+              default:
+                return $scope.locale = translated;
+            }
+          };
           if ($scope["var"]) {
             str = $scope["var"];
           } else {
-            str = attrs.l10n;
+            str = doMagick(attrs.l10n);
           }
-          if (typeof $scope.asDate !== 'undefined') {
-            translated = l10n.formatDate(str, $scope.asDate);
-          } else if (typeof l10n === 'undefined' || typeof l10n === 'null') {
-            translated = str;
-          } else {
-            translated = l10n.get(str);
-          }
-          switch (el[0].tagName.toLowerCase()) {
-            case 'input':
-              return el[0].value = translated;
-            case 'img':
-              el[0].alt = translated;
-              return el[0].title = translated;
-            default:
-              return $scope.locale = translated;
-          }
+          return $scope.$watch('var', function(value) {
+            if (typeof value === 'undefined') {
+              return;
+            }
+            return doMagick(value);
+          });
         }
       };
     };

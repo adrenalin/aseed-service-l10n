@@ -5,7 +5,8 @@ define ['jquery'], ($) ->
     
     # Lazy approach now: use a predefined set
     formatDate: (date, format) ->
-      if typeof date is 'String' then date = new Date(date)
+      if typeof date is 'undefined' or date is '' then return ''
+      if typeof date is 'string' then date = new Date(date)
       
       switch format
         when 'H:i'
@@ -96,7 +97,6 @@ define ['jquery'], ($) ->
         namespace = ''
       else
         namespace = namespace.toString().replace(/\.?$/, '.')
-        console.log 'append namespace', namespace
       
       for i in [0...data.length]
         id = namespace + data.eq(i).attr('id')

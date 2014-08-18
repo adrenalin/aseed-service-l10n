@@ -11,7 +11,10 @@
 
       L10n.prototype.formatDate = function(date, format) {
         var day, hour, min, month;
-        if (typeof date === 'String') {
+        if (typeof date === 'undefined' || date === '') {
+          return '';
+        }
+        if (typeof date === 'string') {
           date = new Date(date);
         }
         switch (format) {
@@ -116,7 +119,6 @@
           namespace = '';
         } else {
           namespace = namespace.toString().replace(/\.?$/, '.');
-          console.log('append namespace', namespace);
         }
         for (i = _i = 0, _ref = data.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
           id = namespace + data.eq(i).attr('id');

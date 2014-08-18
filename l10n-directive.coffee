@@ -18,24 +18,34 @@ define [], () ->
         asDate: '@'
       
       link: ($scope, el, attrs) ->
+        # Place the operations in a method, since sometimes the watcher cycle and directive
+        # aren't synchronized. This requires a custom watch event for this scope.
+        doMagick = (str) ->
+          console.log 'str', str
+          
+          if typeof $scope.asDate isnt 'undefined'
+            console.log 'formatDate', str, $scope.asDate
+            translated = l10n.formatDate str, $scope.asDate
+          else if typeof l10n is 'undefined' or typeof l10n is 'null'
+            translated = str
+          else
+            translated = l10n.get(str)
+          
+          # Change other parameters than text when there is no input
+          switch el[0].tagName.toLowerCase()
+            when 'input'
+              el[0].value = translated
+            when 'img'
+              el[0].alt = translated
+              el[0].title = translated
+            else
+              $scope.locale = translated
+        
         if $scope.var
           str = $scope.var
         else
-          str = attrs.l10n
+          str = doMagick(attrs.l10n)
         
-        if typeof $scope.asDate isnt 'undefined'
-          translated = l10n.formatDate str, $scope.asDate
-        else if typeof l10n is 'undefined' or typeof l10n is 'null'
-          translated = str
-        else
-          translated = l10n.get(str)
-        
-        # Change other parameters than text when there is no input
-        switch el[0].tagName.toLowerCase()
-          when 'input'
-            el[0].value = translated
-          when 'img'
-            el[0].alt = translated
-            el[0].title = translated
-          else
-            $scope.locale = translated
+        $scope.$watch 'var', (value) ->
+          return if typeof value is 'undefined'
+          doMagick value
