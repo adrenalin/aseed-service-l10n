@@ -1,19 +1,20 @@
 {
   "name": "aseed-service-l10n",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "homepage": "https://github.com/adrenalin/aseed-service-l10n",
   "authors": [
     "Arttu Manninen <arttu@kaktus.cc>"
   ],
   "description": "Localization library",
-  "main": "queryparams.js",
+  "main": "l10n-service.js",
   "moduleType": [
     "amd"
   ],
   "keywords": [
     "angularjs",
     "aseed",
-    "query parameters"
+    "localization",
+    "l10n"
   ],
   "license": "MIT",
   "ignore": [
@@ -24,7 +25,6 @@
     "tests"
   ],
   "dependencies": {
-    "aseed": "adrenalin/aseed",
-    "jquery": "~1.11"
+    "aseed": "adrenalin/aseed"
   }
 }
