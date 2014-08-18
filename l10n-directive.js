@@ -3,13 +3,20 @@
   define([], function() {
     var directive;
     return directive = function(l10n) {
-      var dir, prev;
+      var dir, directiveTemplate, prev, v;
       prev = '';
+      v = angular.version.major + angular.version.minor / 1000;
+      if (v >= 1.003) {
+        directiveTemplate = '{{::locale}}';
+      } else {
+        directiveTemplate = '{{locale}}';
+      }
       return dir = {
-        template: '{{locale}}',
+        template: directiveTemplate,
         restrict: 'EA',
         scope: {
-          "var": '='
+          "var": '=',
+          asDate: '@'
         },
         link: function($scope, el, attrs) {
           var str, translated;
@@ -18,7 +25,9 @@
           } else {
             str = attrs.l10n;
           }
-          if (typeof l10n === 'undefined' || typeof l10n === 'null') {
+          if (typeof $scope.asDate !== 'undefined') {
+            translated = l10n.formatDate(str, $scope.asDate);
+          } else if (typeof l10n === 'undefined' || typeof l10n === 'null') {
             translated = str;
           } else {
             translated = l10n.get(str);

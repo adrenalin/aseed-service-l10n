@@ -2,20 +2,30 @@ define [], () ->
   directive = (l10n) ->
     prev = ''
     
+    v = angular.version.major + angular.version.minor / 1000
+    
+    # If version is at least 1.3, bind locale only once to save cycles
+    if v >= 1.003
+      directiveTemplate = '{{::locale}}'
+    else
+      directiveTemplate = '{{locale}}'
+    
     dir =
-      template: '{{locale}}'
+      template: directiveTemplate
       restrict: 'EA'
       scope:
         var: '='
+        asDate: '@'
       
       link: ($scope, el, attrs) ->
-        
         if $scope.var
           str = $scope.var
         else
           str = attrs.l10n
         
-        if typeof l10n is 'undefined' or typeof l10n is 'null'
+        if typeof $scope.asDate isnt 'undefined'
+          translated = l10n.formatDate str, $scope.asDate
+        else if typeof l10n is 'undefined' or typeof l10n is 'null'
           translated = str
         else
           translated = l10n.get(str)

@@ -9,6 +9,45 @@
 
       L10n.prototype.fallback = 'en';
 
+      L10n.prototype.formatDate = function(date, format) {
+        var day, hour, min, month;
+        if (typeof date === 'String') {
+          date = new Date(date);
+        }
+        switch (format) {
+          case 'H:i':
+            hour = date.getHours().toString();
+            if (hour.length < 2) {
+              hour = "0" + hour;
+            }
+            min = date.getMinutes().toString();
+            if (min.length < 2) {
+              min = "0" + min;
+            }
+            return "" + hour + ":" + min;
+          case 'd.m.':
+            return "" + (date.getDate()) + "." + (date.getMonth()) + ".";
+          case 'd.m.Y':
+            return "" + (date.getDate()) + "." + (date.getMonth()) + "." + (date.getFullYear());
+          case 'Y-m-d':
+            month = date.getMonth().toString();
+            if (month.length < 2) {
+              month = "0" + month;
+            }
+            day = date.getDate().toString();
+            if (day.length < 2) {
+              day = "0" + day;
+            }
+            return "" + (date.getFullYear()) + "-" + month + "-" + day;
+          case 'Y-m-dTH:i':
+          case 'ISO':
+          case 'iso':
+            return this.formatDate(date, 'Y-m-d') + 'T' + this.formatDate(date, 'H:i');
+          default:
+            return "" + (date.getDate()) + "." + (date.getMonth()) + "." + (date.getFullYear());
+        }
+      };
+
       L10n.prototype.addLocale = function(str, lang, value) {
         var l;
         if (typeof this.locales === 'undefined') {

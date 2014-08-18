@@ -2,6 +2,38 @@ define ['jquery'], ($) ->
   class L10n
     locales: {}
     fallback: 'en'
+    
+    # Lazy approach now: use a predefined set
+    formatDate: (date, format) ->
+      if typeof date is 'String' then date = new Date(date)
+      
+      switch format
+        when 'H:i'
+          hour = date.getHours().toString()
+          if hour.length < 2 then hour = "0#{hour}"
+          
+          min = date.getMinutes().toString()
+          if min.length < 2 then min = "0#{min}"
+          return "#{hour}:#{min}"
+        when 'd.m.'
+          return "#{date.getDate()}.#{date.getMonth()}."
+        when 'd.m.Y'
+          return "#{date.getDate()}.#{date.getMonth()}.#{date.getFullYear()}"
+        when 'Y-m-d'
+          month = date.getMonth().toString()
+          if month.length < 2 then month = "0#{month}"
+          
+          day = date.getDate().toString()
+          if day.length < 2 then day = "0#{day}"
+          
+          return "#{date.getFullYear()}-#{month}-#{day}"
+          
+        when 'Y-m-dTH:i', 'ISO', 'iso'
+          return @formatDate(date, 'Y-m-d') + 'T' + @formatDate(date, 'H:i')
+        
+        else
+          return "#{date.getDate()}.#{date.getMonth()}.#{date.getFullYear()}"
+    
     addLocale: (str, lang, value) ->
       if typeof @locales is 'undefined'
         l = L10n.prototype.locales
