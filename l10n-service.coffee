@@ -54,7 +54,7 @@ define ['jquery'], ($) ->
       
       l = $.extend({}, l, locales)
     
-    get: (str, lang) ->
+    get: (str, lang = null) ->
       if typeof @locales is 'undefined'
         l = L10n.prototype.locales
       else
@@ -72,7 +72,7 @@ define ['jquery'], ($) ->
         lang = self.lang
       
       if !lang
-        lang = 'fi'
+        lang = fallback
       
       lang = lang.toString().toLowerCase()
       

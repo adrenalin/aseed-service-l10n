@@ -76,6 +76,9 @@
 
       L10n.prototype.get = function(str, lang) {
         var fallback, l;
+        if (lang == null) {
+          lang = null;
+        }
         if (typeof this.locales === 'undefined') {
           l = L10n.prototype.locales;
         } else {
@@ -93,7 +96,7 @@
           lang = self.lang;
         }
         if (!lang) {
-          lang = 'fi';
+          lang = fallback;
         }
         lang = lang.toString().toLowerCase();
         if (typeof l[str] === 'undefined' || typeof l[str][lang] === 'undefined' || !l[str][lang]) {
