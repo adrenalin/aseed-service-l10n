@@ -2,6 +2,7 @@ define ['jquery'], ($) ->
   class L10n
     locales: {}
     fallback: 'en'
+    lang: 'en'
     
     # Lazy approach now: use a predefined set
     formatDate: (date, format) ->
@@ -72,7 +73,10 @@ define ['jquery'], ($) ->
         lang = self.lang
       
       if !lang
-        lang = fallback
+        if typeof @lang is 'undefined'
+          lang = L10n.prototype.lang
+        else
+          lang = @lang
       
       lang = lang.toString().toLowerCase()
       

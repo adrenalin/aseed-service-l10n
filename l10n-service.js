@@ -9,6 +9,8 @@
 
       L10n.prototype.fallback = 'en';
 
+      L10n.prototype.lang = 'en';
+
       L10n.prototype.formatDate = function(date, format) {
         var day, hour, min, month;
         if (typeof date === 'undefined' || date === '') {
@@ -96,7 +98,11 @@
           lang = self.lang;
         }
         if (!lang) {
-          lang = fallback;
+          if (typeof this.lang === 'undefined') {
+            lang = L10n.prototype.lang;
+          } else {
+            lang = this.lang;
+          }
         }
         lang = lang.toString().toLowerCase();
         if (typeof l[str] === 'undefined' || typeof l[str][lang] === 'undefined' || !l[str][lang]) {
