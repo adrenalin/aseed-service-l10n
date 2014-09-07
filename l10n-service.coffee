@@ -55,6 +55,11 @@ define ['jquery'], ($) ->
       
       l = $.extend({}, l, locales)
     
+    # Set language
+    setLang: (lang) ->
+      L10n.prototype.lang = lang
+      @lang = lang
+    
     get: (str, lang = null) ->
       if typeof @locales is 'undefined'
         l = L10n.prototype.locales

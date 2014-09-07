@@ -76,6 +76,11 @@
         return l = $.extend({}, l, locales);
       };
 
+      L10n.prototype.setLang = function(lang) {
+        L10n.prototype.lang = lang;
+        return this.lang = lang;
+      };
+
       L10n.prototype.get = function(str, lang) {
         var fallback, l;
         if (lang == null) {
