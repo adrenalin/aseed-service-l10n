@@ -6,8 +6,8 @@ define ['jquery'], ($) ->
     
     # Lazy approach now: use a predefined set
     formatDate: (date, format) ->
-      if typeof date is 'undefined' or date is '' then return ''
-      if typeof date is 'string' then date = new Date(date)
+      if typeof date is 'undefined' or date is '' or date is null then return ''
+      unless date instanceof Date then date = new Date(date)
       
       switch format
         when 'H:i'
