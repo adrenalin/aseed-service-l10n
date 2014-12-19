@@ -18,11 +18,11 @@ define ['jquery'], ($) ->
           if min.length < 2 then min = "0#{min}"
           return "#{hour}:#{min}"
         when 'd.m.'
-          return "#{date.getDate()}.#{date.getMonth()}."
+          return "#{date.getDate()}.#{date.getMonth() + 1}."
         when 'd.m.Y'
-          return "#{date.getDate()}.#{date.getMonth()}.#{date.getFullYear()}"
+          return "#{date.getDate()}.#{date.getMonth() + 1}.#{date.getFullYear()}"
         when 'Y-m-d'
-          month = date.getMonth().toString()
+          month = (date.getMonth() + 1).toString()
           if month.length < 2 then month = "0#{month}"
           
           day = date.getDate().toString()
@@ -34,7 +34,7 @@ define ['jquery'], ($) ->
           return @formatDate(date, 'Y-m-d') + 'T' + @formatDate(date, 'H:i')
         
         else
-          return "#{date.getDate()}.#{date.getMonth()}.#{date.getFullYear()}"
+          return "#{date.getDate()}.#{date.getMonth() + 1}.#{date.getFullYear()}"
     
     addLocale: (str, lang, value) ->
       if typeof @locales is 'undefined'

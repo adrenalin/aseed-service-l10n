@@ -16,27 +16,32 @@
         restrict: 'EA',
         scope: {
           "var": '=',
-          asDate: '@'
+          asDate: '@',
+          attr: '@'
         },
         link: function($scope, el, attrs) {
           var doMagick, str;
           doMagick = function(str) {
             var translated;
             if (typeof $scope.asDate !== 'undefined') {
-              translated = l10n.formatDate(str, $scope.asDate);
+              translated = l10n.get(l10n.formatDate(str, $scope.asDate));
             } else if (typeof l10n === 'undefined' || typeof l10n === 'null') {
               translated = str;
             } else {
               translated = l10n.get(str);
             }
-            switch (el[0].tagName.toLowerCase()) {
-              case 'input':
-                return el[0].value = translated;
-              case 'img':
-                el[0].alt = translated;
-                return el[0].title = translated;
-              default:
-                return $scope.locale = translated;
+            if (typeof $scope.attr !== 'undefined' && $scope.attr) {
+              return el.attr($scope.attr, translated);
+            } else {
+              switch (el[0].tagName.toLowerCase()) {
+                case 'input':
+                  return el[0].value = translated;
+                case 'img':
+                  el[0].alt = translated;
+                  return el[0].title = translated;
+                default:
+                  return $scope.locale = translated;
+              }
             }
           };
           if ($scope["var"]) {

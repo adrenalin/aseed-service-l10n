@@ -31,11 +31,11 @@
             }
             return "" + hour + ":" + min;
           case 'd.m.':
-            return "" + (date.getDate()) + "." + (date.getMonth()) + ".";
+            return "" + (date.getDate()) + "." + (date.getMonth() + 1) + ".";
           case 'd.m.Y':
-            return "" + (date.getDate()) + "." + (date.getMonth()) + "." + (date.getFullYear());
+            return "" + (date.getDate()) + "." + (date.getMonth() + 1) + "." + (date.getFullYear());
           case 'Y-m-d':
-            month = date.getMonth().toString();
+            month = (date.getMonth() + 1).toString();
             if (month.length < 2) {
               month = "0" + month;
             }
@@ -49,7 +49,7 @@
           case 'iso':
             return this.formatDate(date, 'Y-m-d') + 'T' + this.formatDate(date, 'H:i');
           default:
-            return "" + (date.getDate()) + "." + (date.getMonth()) + "." + (date.getFullYear());
+            return "" + (date.getDate()) + "." + (date.getMonth() + 1) + "." + (date.getFullYear());
         }
       };
 
